@@ -1,147 +1,604 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andy Yin | Creative Digital Marketing</title>
-    <style>
-        /* --- Base Styles & Typography --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            line-height: 1.6; 
-            color: #333; 
-            background-color: #fdfdfd; 
-        }
-        html { scroll-behavior: smooth; }
-        
-        /* --- Navigation --- */
-        nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 1.5rem 5%; 
-            background: rgba(253, 253, 253, 0.95); 
-            position: sticky; 
-            top: 0; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
-            z-index: 1000; 
-        }
-        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 1px; color: #111; text-decoration: none; }
-        .nav-links a { 
-            text-decoration: none; 
-            color: #555; 
-            font-weight: 500; 
-            margin-left: 2rem; 
-            transition: color 0.3s;
-        }
-        .nav-links a:hover { color: #000; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andy Yin</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,300;1,400&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    /* ── Variables ── */
+    :root {
+      --font: 'Lato', sans-serif;
+      --container: 940px;
+      --nav-height: 60px;
 
-        /* --- Sections --- */
-        section { 
-            padding: 6rem 5%; 
-            min-height: 80vh; 
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
-        h1 { font-size: 3rem; margin-bottom: 1rem; color: #111; line-height: 1.1; }
-        h2 { font-size: 2rem; margin-bottom: 2rem; color: #111; }
-        p { font-size: 1.1rem; color: #555; max-width: 700px; margin-bottom: 1.5rem; }
+      --orange: #ff842a;
+      --red:    #ff6570;
+      --purple: #7646ff;
+      --blue:   #4697f6;
+      --green:  #19d175;
 
-        /* --- Projects Section --- */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 2rem; 
-            margin-top: 2rem; 
-        }
-        .card { 
-            background: #fff; 
-            padding: 2.5rem; 
-            border-radius: 4px; 
-            border: 1px solid #eaeaea; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-        }
-        .card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
-        }
-        .card h3 { margin-bottom: 1rem; color: #222; }
-        .card p { font-size: 1rem; margin-bottom: 0; }
+      --bg:             #ffffff;
+      --surface:        #f5f5f5;
+      --text-primary:   #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --border:         #e8e8e8;
+    }
 
-        /* --- Contact / Buttons --- */
-        #contact { text-align: center; align-items: center; min-height: 60vh; }
-        #contact p { margin: 0 auto 2rem auto; }
-        .btn { 
-            display: inline-block; 
-            padding: 1rem 2.5rem; 
-            background: #111; 
-            color: #fff; 
-            text-decoration: none; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            transition: background 0.3s ease;
-        }
-        .btn:hover { background: #444; }
-        
-        /* Footer */
-        footer { text-align: center; padding: 2rem; font-size: 0.9rem; color: #888; }
-    </style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      color: var(--text-primary);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Container ── */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Navigation ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    #navbar .container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a.active {
+      color: var(--text-primary);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* ── Sections ── */
+    section {
+      padding-top: calc(var(--nav-height) + 80px);
+      padding-bottom: 100px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+    }
+
+    /* ── Home — Work Grid ── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .work-grid .project-card:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .project-card {
+      background: var(--card-color);
+      border-radius: 16px;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+    }
+
+    .card-inner {
+      position: absolute;
+      inset: 0;
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 60%);
+    }
+
+    .card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 10px;
+      backdrop-filter: blur(4px);
+      width: fit-content;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .card-hover-cta {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .project-card:hover .card-hover-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-tagline {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .about-bio {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .about-bio + .about-bio {
+      margin-top: 16px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--text-secondary);
+      border: 1.5px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--orange);
+      border-color: var(--orange);
+      background: rgba(255, 132, 42, 0.06);
+    }
+
+    .avatar-placeholder {
+      width: 280px;
+      height: 280px;
+      border-radius: 24px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-placeholder span {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--border);
+      letter-spacing: -2px;
+    }
+
+    /* ── Contact ── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-heading {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .contact-subtext {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-row .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-primary);
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #b0b0b0;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255, 132, 42, 0.12);
+    }
+
+    .btn-send {
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--orange);
+      border: none;
+      border-radius: 10px;
+      padding: 15px 36px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.3px;
+      margin-top: 4px;
+    }
+
+    .btn-send:hover {
+      background: #e06e1a;
+      transform: translateY(-1px);
+    }
+
+    .btn-send:active {
+      transform: translateY(0);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+      .work-grid .project-card:first-child {
+        grid-column: 1;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-avatar {
+        order: -1;
+      }
+      .avatar-placeholder {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+      }
+      .avatar-placeholder span {
+        font-size: 32px;
+      }
+      .about-tagline {
+        font-size: 36px;
+      }
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        gap: 20px;
+      }
+      .card-title {
+        font-size: 20px;
+      }
+      .contact-heading {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#home" class="logo">ANDY YIN.</a>
-        <div class="nav-links">
-            <a href="#projects">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="container">
+      <a href="#home" class="nav-logo">Andy Yin</a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
+  <main>
+
+    <!-- Home — Work -->
     <section id="home">
-        <h1>Hi, I'm Andy.</h1>
-        <p>I'm a recent grad and a creative digital marketer based in Chicago. I specialize in turning big ideas into accessible, engaging media campaigns that actually connect with people.</p>
-    </section>
+      <div class="container">
+        <p class="section-label">Selected Work</p>
+        <div class="work-grid" id="work-grid">
 
-    <section id="projects">
-        <h2>Selected Works</h2>
-        <p>A collection of my professional and personal projects. Click in to see my process, from raw ideas to final execution.</p>
-        
-        <div class="grid">
-            <div class="card">
-                <h3>Project Title 01</h3>
-                <p>A brief description of the digital marketing campaign or media project. Explain what problem you solved here.</p>
-            </div>
-            <div class="card">
-                <h3>Project Title 02</h3>
-                <p>A brief description of a personal project. Showcase your creative thinking and how you execute ideas.</p>
-            </div>
-            <div class="card">
-                <h3>Project Title 03</h3>
-                <p>Another placeholder. You can easily duplicate these 'card' blocks in the code to add as many projects as you need.</p>
-            </div>
+
         </div>
+      </div>
     </section>
 
+    <!-- About -->
     <section id="about">
-        <h2>About Me</h2>
-        <p>I'm passionate about the intersection of media, design, and marketing. While I'm fresh out of school, I bring a unique, unfiltered perspective to creative problem-solving.</p>
-        <p>When I'm not strategizing campaigns or designing assets, you can find me exploring the creative scene around Chicago. I'm currently looking for roles where I can contribute my ideas and grow alongside a dynamic team.</p>
+      <div class="container">
+        <p class="section-label">About</p>
+        <div class="about-grid">
+          <div class="about-text">
+            <h2 class="about-tagline">i make things.</h2>
+            <p class="about-bio">
+              Hey, I'm Andy — a designer and builder who cares deeply about the details.
+              I work at the intersection of craft, systems thinking, and human behavior
+              to create products people actually enjoy using.
+            </p>
+            <p class="about-bio">
+              Currently open to new opportunities. Based in [City].
+              Previously worked on [Project / Company].
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-link">Twitter / X</a>
+              <a href="#" class="social-link">GitHub</a>
+              <a href="#" class="social-link">LinkedIn</a>
+              <a href="#" class="social-link">Read.cv</a>
+            </div>
+          </div>
+          <div class="about-avatar">
+            <div class="avatar-placeholder">
+              <span>AY</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- Contact -->
     <section id="contact">
-        <h2>Let's Connect</h2>
-        <p>Looking for a creative mind to join your team in Chicago? Let's grab a coffee or set up a chat.</p>
-        <a href="mailto:your.email@example.com" class="btn">Send Me an Email</a>
+      <div class="container">
+        <p class="section-label">Get in Touch</p>
+        <div class="contact-inner">
+          <div class="contact-header">
+            <h2 class="contact-heading">Let's work together.</h2>
+            <p class="contact-subtext">
+              Have a project in mind, a question, or just want to say hi?
+              Drop me a line — I read every message.
+            </p>
+          </div>
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name"
+                  placeholder="Your name" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email"
+                  placeholder="you@example.com" autocomplete="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="6"
+                placeholder="Tell me what's on your mind..."></textarea>
+            </div>
+            <button type="submit" class="btn-send">Send Message</button>
+          </form>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        &copy; 2026 Andy Yin. All rights reserved.
-    </footer>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Andy Yin</p>
+    </div>
+  </footer>
+
+  <script src="data/projects.js"></script>
+  <script>
+    // ── Render project cards from data ──────────────────────────
+    (function () {
+      var grid = document.getElementById('work-grid');
+      if (!grid || !window.PROJECTS) return;
+      window.PROJECTS.forEach(function (project) {
+        var a = document.createElement('a');
+        a.href = 'project.html?id=' + project.id;
+        a.className = 'project-card';
+        a.style.setProperty('--card-color', project.color);
+        a.innerHTML =
+          '<div class="card-inner">' +
+            '<span class="card-tag">' + project.tag + '</span>' +
+            '<h3 class="card-title">' + project.title + '</h3>' +
+            '<div class="card-hover-cta">View Project \u2192</div>' +
+          '</div>';
+        grid.appendChild(a);
+      });
+    })();
+
+    // Active nav highlighting via IntersectionObserver
+    (function () {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a');
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.classList.toggle(
+                  'active',
+                  link.getAttribute('href') === '#' + entry.target.id
+                );
+              });
+            }
+          });
+        },
+        { rootMargin: '-50% 0px -45% 0px', threshold: 0 }
+      );
+
+      sections.forEach((s) => observer.observe(s));
+    })();
+
+    // Smooth scroll with clean hash update
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', this.getAttribute('href'));
+        }
+      });
+    });
+
+    // Form submit feedback
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const btn = this.querySelector('.btn-send');
+      btn.textContent = 'Sent ✓';
+      btn.style.background = '#19d175';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        this.reset();
+      }, 3000);
+    });
+  </script>
 
 </body>
 </html>

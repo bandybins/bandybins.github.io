@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project — Andy Yin</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,300;1,400&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --font: 'Lato', sans-serif;
+      --container: 940px;
+      --nav-height: 60px;
+      --accent: #ff842a;
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --border: #e8e8e8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      color: var(--text-primary);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Nav */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    #navbar .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+    .nav-back {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-primary); }
+    .nav-back::before { content: '←'; }
+
+    /* Page layout */
+    .page-content {
+      padding-top: calc(var(--nav-height) + 80px);
+      padding-bottom: 100px;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* Project header */
+    .project-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .project-title {
+      font-size: 56px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .project-description {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 600px;
+      margin-bottom: 8px;
+    }
+    .project-year {
+      font-size: 13px;
+      font-weight: 400;
+      color: #b0b0b0;
+    }
+
+    /* Divider between header and body */
+    .project-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* Content blocks */
+    .block-heading {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-top: 56px;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+    .project-body > .block-heading:first-child {
+      margin-top: 0;
+    }
+    .block-text {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 680px;
+      margin-bottom: 24px;
+    }
+    .block-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .block-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .block-images img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* Placeholder when content is empty */
+    .placeholder-area {
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c0c0c0;
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    /* 404 state */
+    .not-found {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+    .not-found a {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .project-title { font-size: 36px; }
+      .block-images { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">Andy Yin</a>
+      <a href="index.html" class="nav-back">Back to work</a>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <p class="project-tag" id="project-tag"></p>
+    <h1 class="project-title" id="project-title"></h1>
+    <p class="project-description" id="project-description"></p>
+    <p class="project-year" id="project-year"></p>
+    <hr class="project-divider">
+    <div class="project-body" id="project-body"></div>
+  </div>
+
+  <script src="data/projects.js"></script>
+  <script>
+    (function () {
+      var id = new URLSearchParams(location.search).get('id');
+      var project = (window.PROJECTS || []).find(function (p) { return p.id === id; });
+
+      if (!project) {
+        document.getElementById('project-tag').textContent = '404';
+        document.getElementById('project-title').textContent = 'Project not found';
+        document.getElementById('project-body').innerHTML =
+          '<p class="not-found">No project with that ID exists. <a href="index.html">Go back home.</a></p>';
+        return;
+      }
+
+      // Set accent color
+      document.documentElement.style.setProperty('--accent', project.color);
+
+      // Page title
+      document.title = project.title + ' \u2014 Andy Yin';
+
+      // Header
+      document.getElementById('project-tag').textContent = project.tag;
+      document.getElementById('project-title').textContent = project.title;
+      if (project.description) {
+        document.getElementById('project-description').textContent = project.description;
+      }
+      if (project.year) {
+        document.getElementById('project-year').textContent = project.year;
+      }
+
+      // Content blocks
+      var body = document.getElementById('project-body');
+      var blocks = project.content || [];
+
+      if (blocks.length === 0) {
+        body.innerHTML = '<div class="placeholder-area">Project content coming soon.</div>';
+        return;
+      }
+
+      blocks.forEach(function (block) {
+        var el;
+        switch (block.type) {
+          case 'heading':
+            el = document.createElement('h2');
+            el.className = 'block-heading';
+            el.textContent = block.value;
+            break;
+          case 'text':
+            el = document.createElement('p');
+            el.className = 'block-text';
+            el.textContent = block.value;
+            break;
+          case 'image':
+            el = document.createElement('img');
+            el.className = 'block-image';
+            el.src = block.src;
+            el.alt = block.alt || '';
+            el.loading = 'lazy';
+            break;
+          case 'images':
+            el = document.createElement('div');
+            el.className = 'block-images';
+            (block.srcs || []).forEach(function (src, i) {
+              var img = document.createElement('img');
+              img.src = src;
+              img.alt = (block.alts && block.alts[i]) ? block.alts[i] : '';
+              img.loading = 'lazy';
+              el.appendChild(img);
+            });
+            break;
+          default:
+            return;
+        }
+        body.appendChild(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>
